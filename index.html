@@ -10,10 +10,9 @@
         :root {
             --bg-top: #050509;
             --bg-bottom: #0f172a;
-            /* ألوان السائل المتحرك جوه الكارت */
-            --liquid-color-1: #1e293b; /* رمادي مزرق داكن */
-            --liquid-color-2: #1a1033; /* بنفسجي ليلي عميق */
-            --card-base: rgba(15, 15, 25, 0.7); /* شفافة أكتر عشان يبان السائل */
+            --liquid-color-1: #1e293b;
+            --liquid-color-2: #1a1033;
+            --card-base: rgba(15, 15, 25, 0.7);
             --text-primary: #ffffff;
             --text-secondary: #94a3b8;
             --glow-1: rgba(51, 65, 85, 0.2);
@@ -67,24 +66,20 @@
             border-color: var(--text-secondary);
         }
 
-        /* ----------------------------------------------------------- */
-        /* ستايل الكارت بالسائل الانسيابي المتحرك جوه */
-        /* ----------------------------------------------------------- */
         .glass-card {
             position: relative;
             background: var(--card-base);
             backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
             border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 40px;
             box-shadow: 0 40px 90px -15px rgba(0,0,0,0.9);
-            overflow: hidden; /* مهم جداً عشان السائل ميتطلعش بره */
+            overflow: hidden;
         }
 
-        /* طبقة السائل المتحرك */
         .glass-card::before {
             content: '';
             position: absolute;
             top: -50%; left: -50%; width: 200%; height: 200%;
-            z-index: -1; /* خلف المحتوى */
+            z-index: -1;
             background: linear-gradient(
                 135deg,
                 var(--card-base) 0%,
@@ -95,7 +90,7 @@
             );
             background-size: 400% 400%;
             animation: liquidMove 15s ease infinite;
-            opacity: 0.8; /* شفافية السائل */
+            opacity: 0.8;
         }
 
         @keyframes liquidMove {
@@ -103,7 +98,6 @@
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
-        /* ----------------------------------------------------------- */
 
         .profile-container { position: relative; width: 190px; height: 190px; margin-bottom: 2.5rem; z-index: 1; }
         .profile-border {
