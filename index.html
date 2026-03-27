@@ -129,18 +129,26 @@
 
         #music-container {
             position: fixed; bottom: 30px; left: 30px; z-index: 100;
-            display: flex; align-items: center; gap: 15px; padding: 12px;
+            display: flex; align-items: center; justify-content: center;
             background: rgba(10, 10, 20, 0.85); backdrop-filter: blur(15px);
             border: 1px solid rgba(148, 163, 184, 0.25); border-radius: 50px;
-            max-width: 60px; overflow: hidden;
-            transition: max-width .6s cubic-bezier(.4,0,.2,1), padding .6s;
+            width: 60px; height: 60px; overflow: hidden;
+            transition: all .6s cubic-bezier(.4,0,.2,1);
             cursor: pointer; box-shadow: 0 10px 40px rgba(0,0,0,0.7);
         }
-        #music-container.expanded { max-width: 350px; padding: 12px 25px; cursor: default; }
-        .music-icon { color: var(--text-secondary); animation: pulseMusic 3s infinite; }
-        @keyframes pulseMusic { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.6; transform: scale(1.05); } }
+        #music-container.expanded { 
+            width: 350px; padding: 0 20px; 
+            justify-content: flex-start; gap: 12px; cursor: default; 
+        }
+        .music-icon { 
+            color: var(--text-secondary); animation: pulseMusic 3s infinite;
+            min-width: 26px; height: 26px;
+            display: flex; align-items: center; justify-content: center;
+            transform: translateX(-1px); 
+        }
+        @keyframes pulseMusic { 0%, 100% { opacity: 1; transform: scale(1) translateX(-1px); } 50% { opacity: 0.6; transform: scale(1.05) translateX(-1px); } }
         
-        audio { height: 30px; margin-top: 8px; filter: invert(1) brightness(1.3); width: 230px; }
+        audio { height: 30px; filter: invert(1) brightness(1.3); width: 230px; }
 
         #main-content.fade-in {
             animation: fadeInUp 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
@@ -171,9 +179,9 @@
 
     <div id="music-container" onclick="toggleMusic(event)">
         <div class="music-icon" id="toggle-btn">
-            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"></path><circle cx="6" cy="18" r="3"></circle><circle cx="18" cy="16" r="3"></circle></svg>
         </div>
-        <div class="music-info" style="white-space:nowrap; opacity:0; transition:opacity .3s ease;">
+        <div class="music-info" style="white-space:nowrap; opacity:0; transition:opacity .3s ease; display: none;">
             <audio id="player" controls="" loop="">
                 <source src="https://files.catbox.moe/8sruil.mp3" type="audio/mpeg">
             </audio>
@@ -244,11 +252,15 @@
             const c=document.getElementById('music-container'),info=c.querySelector('.music-info');
             if(!c.classList.contains('expanded')){
                 c.classList.add('expanded');
+                info.style.display='block';
                 setTimeout(()=>info.style.opacity='1', 350);
             }
             else if(e.target.closest('#toggle-btn')){
                 info.style.opacity='0';
-                setTimeout(()=>c.classList.remove('expanded'), 100);
+                setTimeout(()=>{
+                    c.classList.remove('expanded');
+                    info.style.display='none';
+                }, 400);
             }
         }
     </script>
